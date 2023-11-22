@@ -6,23 +6,23 @@ const jobposting = require("../models/Jobposting");
 const fetchjobs = require("../middleware/fetchjobs");
 const Jobposting = require("../models/Jobposting");
 
-//Route1 :Get all the notes using get "api/notes/fetchnotes"
-// router.get("/fetchjobs", fetchjobs, async (req, res) => {
-//   try {
-//     const notes = await Note.find({ user: req.user.id });
-//     res.json(notes);
-//   } catch (error) {
-//     console.error(error.message);
-//     res.status(500).send("Internal server error");
-//   }
-// });
+// Route1 :Get all the notes using get "api/notes/fetchnotes"
+router.get("/fetchjobs", async (req, res) => {
+  try {
+    const notes = await jobposting.find();
+    res.json(notes);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error");
+  }
+});
 
 //Route2 :Add new notes using post "api/notes/addnotes"
 router.post(
   "/addjobs",
-  fetchuser,
+  fetchjobs,
   [
-    body(" jobName", "Enter a valid title").isLength({
+    body("jobName", "Enter a valid title").isLength({
       min: 3,
     }),
     body("companyName", "Enter a valid company name").isLength({
@@ -41,7 +41,7 @@ router.post(
       }),
   ],   async (req, res) => {
     try {
-      const { jobName, companyName, experienceRequirement,salaryPackage,location,jobType,vacancy,shiftType,jobDescription} = req.body;
+      const { jobName, companyName,experienceRequirement,salaryPackage,location,jobType,vacancy,shiftType,jobDescription} = req.body;
 
       //if there are error return bad request and error
       const errors = validationResult(req);
@@ -49,7 +49,7 @@ router.post(
         return res.status(400).json({ errors: errors.array() });
       }
 
-      const job = new Jobposting({jobName, companyName, experienceRequirement,salaryPackage,location,jobType,vacancy,shiftType,jobDescription, user: req.user.id });
+      const job = new Jobposting({jobName, companyName,jobproviderId:req.user.id, experienceRequirement,salaryPackage,location,jobType,vacancy,shiftType,jobDescription, user: req.user.id });
       const savedNote = await job.save();
       res.json(savedNote);
     } catch (error) {

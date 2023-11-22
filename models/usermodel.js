@@ -6,6 +6,8 @@ const user = new mongoose.Schema({
   phonenumber:{type:String, default:null},
   email : {type : String , default : null},
   password : {type : String ,default : null},
+  userType : {type : Number , default : 3},
+      // 1-admin 2-job provider 3-job seeker
   createdAt : {type :Date,default: Date.now()},
   updatedAt : {type : Date , default : null}
 })

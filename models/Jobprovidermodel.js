@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const jobProvider = new mongoose.Schema({
-    userId : {type : mongoose.SchemaTypes.ObjectId , ref : 'user' , default : null},
+    userId : {type : mongoose.Schema.Types.ObjectId , ref : 'user' , default : null},
     company_name : {type : String , default : null},
     company_description : {type : String , default : null},
     company_strength : {type : String , default : null},

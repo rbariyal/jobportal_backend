@@ -47,6 +47,7 @@ router.post(
       user = await User.create({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
+        userType :req.body.userType,
         phonenumber:req.body.phonenumber,
         email: req.body.email,
         password: secPass,
@@ -101,9 +102,10 @@ router.post(
           id: user.id,
         },
       };
+      const userType=user.userType;
       const authtoken = jwt.sign(payload, JWT_SECRET);
       success=true;
-      res.json({success, authtoken });
+      res.json({success, authtoken,userType });
     } catch (error) {
       console.log(error);
       res.status(500).send("Internal server Error ");

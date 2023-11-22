@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const jobposting = new mongoose.Schema({
     jobName : {type : String , default : null},
     jobDescription : {type : String , default : null},
-    jobproviderId : {type : mongoose.SchemaTypes.ObjectId , ref : 'jobprovider' ,default : null},
+    jobproviderId : {type : mongoose.SchemaTypes.ObjectId , ref : 'user' ,default : null},
     companyName : {type : String , default : null},
     location:{type:String, default:null},
     salaryPackage : {type : Number , default : 0},
